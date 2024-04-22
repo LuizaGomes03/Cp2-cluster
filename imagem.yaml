@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-python-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: hello-python
+  template:
+    metadata:
+      labels:
+        app: hello-python
+    spec:
+      containers:
+      - name: hello-python-container
+        image: luizaigomes/clustercp2:1.0
+        ports:
+        - containerPort: 8080
+        resources:
+          limits:
+            cpu: "0.1"  # Defina o limite de CPU
+            memory: "512Mi"  # Defina o limite de memória
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hello-python-service
+spec:
+  selector:
+    app: hello-python
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+  type: LoadBalancer
