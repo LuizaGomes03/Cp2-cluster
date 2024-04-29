@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: meu-script-pod
+spec:
+  containers:
+  - name: meu-script-container
+    image: seu-usuario/meu-script:latest
